@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI ScamShield</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/main.css"/>
+
+</head>
+<body>
+
+<nav>
+  <div class="logo">AI <span>Scam</span>Shield</div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('home')">Home</button>
+    <button class="tab-btn" onclick="showTab('guardian')">GuardianBot</button>
+    <button class="tab-btn" onclick="showTab('simulator')">SafeSimulator</button>
+    <button class="tab-btn" onclick="showTab('mentor')">MentorPath</button>
+  </div>
+  <div class="badge">DEMO</div>
+</nav>
+
+<!-- KEEP ALL YOUR HTML SAME BELOW -->
+<!-- HOME -->
+<div id="tab-home" class="panel active">
+  <div class="hero">
+    <h1>Shield yourself from<br/><em>digital scams</em></h1>
+    <p>AI-powered protection for seniors and children. Detect scams, train your instincts, and stay safe online.</p>
+    <div class="hero-cards">
+      <div class="hero-card" onclick="showTab('guardian')">
+        <div class="icon">🛡️</div>
+        <h3>GuardianBot</h3>
+        <p>Paste any suspicious message, call script, or link. Get an instant AI risk analysis.</p>
+      </div>
+      <div class="hero-card" onclick="showTab('simulator')">
+        <div class="icon">🎯</div>
+        <h3>SafeSimulator</h3>
+        <p>Practice spotting real scam tactics through live AI role-play scenarios.</p>
+      </div>
+      <div class="hero-card" onclick="showTab('mentor')">
+        <div class="icon">📈</div>
+        <h3>MentorPath</h3>
+        <p>Track your progress and get personalized tips based on your weak spots.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GUARDIANBOT -->
+<div id="tab-guardian" class="panel">
+  <div class="section-label">Module 01</div>
+  <div class="panel-title">GuardianBot</div>
+  <div class="panel-sub">Paste any suspicious message, SMS, email, or call script below for an instant AI scam analysis.</div>
+  <div class="chat-wrap">
+    <div class="chat-header">
+      <div class="dot"></div>
+      <div>
+        <h3>GuardianBot</h3>
+        <span>AI-powered scam detector · Always online</span>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg bot">
+        <div class="msg-label">GuardianBot</div>
+        <div class="msg-bubble">Namaste! 🙏 I'm GuardianBot. Paste any suspicious message, SMS, email, or describe a suspicious call you received — I'll tell you if it's a scam and explain the tactics being used.</div>
+      </div>
+    </div>
+    <div class="quick-msgs">
+      <button class="quick-msg" onclick="fillInput('Your KYC is expired. Click here to update or your account will be blocked: bit.ly/kyc-update-now')">Fake KYC SMS</button>
+      <button class="quick-msg" onclick="fillInput('Congratulations! You have won Rs 50,000 in the BSNL Lucky Draw. Send Rs 500 processing fee to claim your prize via UPI.')">Lottery scam</button>
+      <button class="quick-msg" onclick="fillInput('This is Amazon customer support. We noticed suspicious activity on your account. Please share your OTP to verify your identity.')">Fake Amazon call</button>
+      <button class="quick-msg" onclick="fillInput('Hi, I am from CBI. Your Aadhaar number has been misused in a money laundering case. You must pay Rs 10,000 fine immediately to avoid arrest.')">CBI impersonation</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chat-input" placeholder="Paste suspicious message or describe a call…" onkeydown="handleKey(event)"></textarea>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SAFESIMULATOR -->
+<div id="tab-simulator" class="panel">
+  <div class="section-label">Module 02</div>
+  <div class="panel-title">SafeSimulator</div>
+  <div class="panel-sub">Choose a scam scenario. The AI will play the scammer — respond naturally and learn to spot the red flags.</div>
+  <div class="scenario-picker" id="scenario-picker">
+    <div class="scenario-card selected" onclick="selectScenario(this, 'upi')" data-id="upi">
+      <h4>📱 Fake UPI Helpdesk</h4>
+      <p>Someone claiming to be from your bank calls about a failed UPI transaction.</p>
+      <div class="difficulty diff-easy">● BEGINNER</div>
+    </div>
+    <div class="scenario-card" onclick="selectScenario(this, 'lottery')" data-id="lottery">
+      <h4>🎰 Lottery Prize Call</h4>
+      <p>You've "won" a prize but need to pay a fee to release your winnings.</p>
+      <div class="difficulty diff-medium">● INTERMEDIATE</div>
+    </div>
+    <div class="scenario-card" onclick="selectScenario(this, 'grandchild')" data-id="grandchild">
+      <h4>👶 Grandchild Emergency</h4>
+      <p>A caller claims your grandchild is in trouble and needs urgent money.</p>
+      <div class="difficulty diff-medium">● INTERMEDIATE</div>
+    </div>
+    <div class="scenario-card" onclick="selectScenario(this, 'gaming')" data-id="gaming">
+      <h4>🎮 Free Gaming Reward</h4>
+      <p>A message offers free in-game currency in exchange for your login details.</p>
+      <div class="difficulty diff-hard">● ADVANCED</div>
+    </div>
+  </div>
+  <button class="start-sim-btn" id="start-sim-btn" onclick="startSimulation()">▶ Start Simulation</button>
+  <div class="chat-wrap" id="sim-chat" style="display:none">
+    <div class="chat-header">
+      <div class="dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></div>
+      <div>
+        <h3 id="sim-title">Simulation Active</h3>
+        <span>Respond naturally — GuardianBot will coach you after</span>
+      </div>
+    </div>
+    <div class="chat-messages" id="sim-messages" style="height:320px"></div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="sim-input" placeholder="Type your response to the scammer…" onkeydown="handleSimKey(event)"></textarea>
+      <button class="send-btn" id="sim-send-btn" onclick="sendSimMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MENTORPATH -->
+<div id="tab-mentor" class="panel">
+  <div class="section-label">Module 03</div>
+  <div class="panel-title">MentorPath</div>
+  <div class="panel-sub">Your personal safety progress and AI-powered learning recommendations.</div>
+  <div class="mentor-grid">
+    <div class="mentor-card">
+      <h3>📊 Safety Score</h3>
+      <div class="stat-grid">
+        <div class="stat"><div class="val" style="color:var(--amber)" id="score-val">0</div><div class="lbl">Safety Score</div></div>
+        <div class="stat"><div class="val" style="color:var(--green)" id="sims-val">0</div><div class="lbl">Simulations</div></div>
+        <div class="stat"><div class="val" style="color:var(--red)" id="scams-val">0</div><div class="lbl">Scams Caught</div></div>
+      </div>
+    </div>
+    <div class="mentor-card">
+      <h3>🧠 Skill Breakdown</h3>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Urgency tactics</span><span style="color:var(--muted)" id="p1-val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="p1" style="width:0%;background:var(--red)"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Authority impersonation</span><span style="color:var(--muted)" id="p2-val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="p2" style="width:0%;background:var(--amber)"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>OTP & data requests</span><span style="color:var(--muted)" id="p3-val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="p3" style="width:0%;background:var(--green)"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mentor-card">
+      <h3>💡 Today's Safety Tips</h3>
+      <div class="tip-list">
+        <div class="tip"><div class="tip-icon">🔴</div><div>No real bank or government agency will ever ask for your OTP, PIN, or password over a call or message.</div></div>
+        <div class="tip"><div class="tip-icon">🟡</div><div>Scammers create urgency on purpose — "act now or lose your account." Real services give you time.</div></div>
+        <div class="tip"><div class="tip-icon">🟢</div><div>When in doubt, hang up and call the official number from the back of your card or the company's website.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- JS -->
+<script src="js/app.js"></script>
+<script src="js/api.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/simulator.js"></script>
+
+</body>
+</html>
