@@ -15,80 +15,81 @@ It combines **real-time scam detection**, **interactive scam simulations**, and 
 ## ✨ Features
 
 ### 🧠 GuardianBot (Scam Detection)
-
-* Analyze suspicious messages, calls, or links
-* AI-powered risk classification (HIGH / MEDIUM / LOW)
-* Explains scam tactics and red flags
-* Provides actionable safety advice
+- Paste any suspicious message, SMS, email, or call script
+- AI-powered risk classification (HIGH / MEDIUM / LOW)
+- Explains scam tactics and red flags
+- Provides actionable safety advice
+- **Multilingual** — detects and responds in the user's language automatically (English, Hindi, Marathi, Gujarati, Hinglish, and more)
 
 ---
 
 ### 🎯 SafeSimulator (AI Roleplay Training)
-
-* Interactive scam scenarios (UPI, Lottery, Emergency, Gaming)
-* AI acts as scammer
-* Users practice responding safely
-* Builds real-world awareness
+- 4 interactive scam scenarios:
+  - 🏦 **Fake UPI Helpdesk** (Beginner)
+  - 🎰 **Lottery Prize Call** (Intermediate)
+  - 👴 **Grandchild Emergency** (Intermediate)
+  - 🎮 **Free Gaming Reward** (Advanced)
+- AI dynamically plays the scammer role
+- Users practice identifying and responding safely
+- Builds real-world scam resistance
 
 ---
 
 ### 📊 MentorPath (Progress Tracking)
-
-* Tracks safety score and performance
-* Identifies weak areas (urgency, authority, OTP scams)
-* Provides daily safety tips
+- Tracks safety score and simulation performance
+- Identifies weak areas (urgency, authority, OTP scams)
+- Provides daily safety tips
 
 ---
 
 ### 🌐 Multilingual Support
-
-* Supports **English, Hindi, and Marathi**
-* Automatically detects user language
-* Responds in the same language
+- Supports **English, Hindi, Marathi, Gujarati, Hinglish** and more
+- Automatically detects user language from input
+- Responds in the same language — no configuration needed
 
 ---
 
 ## 🏗️ Tech Stack
 
 ### Frontend
-
-* HTML, CSS, JavaScript
-* Modular JS architecture
+- HTML, CSS, JavaScript
+- Modular JS architecture
 
 ### Backend
-
-* Python (Flask)
-* REST API endpoints
+- Python + Flask
+- Modular routes architecture
 
 ### AI Integration
-
-* OpenAI API (or Claude)
-* Prompt-based scam analysis
+- **Groq API** — `llama-3.3-70b-versatile` model
+- Free tier: 1,000 requests/day, 30 requests/minute
+- No regional restrictions
 
 ---
 
 ## 📁 Project Structure
 
 ```
-ai-scamshield/
+AI-ScamShield/
 │
 ├── backend/
-│   ├── server.py
+│   ├── server.py               # Flask app entry point
+│   ├── routes/                 # Modular Flask route handlers
 │   ├── services/
-│   │   └── ai_service.py
-│   └── .env
+│   │   └── ai_service.py       # Groq AI: scam detection + simulator logic
+│   ├── .env                    # API keys (not committed)
+│   ├── .gitignore
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── index.html
 │   ├── styles/
 │   │   └── main.css
 │   └── js/
-│       ├── app.js
-│       ├── api.js
-│       ├── chat.js
-│       └── simulator.js
+│       ├── app.js              # App init, stats tracking
+│       ├── api.js              # Backend API calls
+│       ├── chat.js             # GuardianBot chat logic
+│       └── simulator.js        # SafeSimulator logic
 │
-├── requirements.txt
 └── README.md
 ```
 
@@ -97,90 +98,91 @@ ai-scamshield/
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
-
 ```bash
-git clone https://github.com/your-username/ai-scamshield.git
-cd ai-scamshield
+git clone https://github.com/Omini05/AI-ScamShield.git
+cd AI-ScamShield
 ```
 
----
-
-### 2. Create virtual environment
-
+### 2. Create and activate virtual environment
 ```bash
+cd backend
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
 ```
-
----
 
 ### 3. Install dependencies
-
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 4. Add API key
-
-Create `.env` inside `backend/`:
-
-```
-OPENAI_API_KEY=your_api_key_here
-```
-
----
-
-### 5. Run backend
-
+Or manually:
 ```bash
-cd backend
+pip install flask python-dotenv groq
+```
+
+### 4. Get a free Groq API key
+- Go to [console.groq.com](https://console.groq.com)
+- Sign up → API Keys → Create API key
+
+### 5. Create `.env` inside `backend/`
+```
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+### 6. Run the backend
+```bash
 python server.py
 ```
 
----
-
-### 6. Open application
-
+### 7. Open the app
 ```
 http://127.0.0.1:5000
 ```
 
 ---
 
-## 🔐 Security Notes
+## 🔑 API Endpoints
 
-* API keys are stored securely in `.env`
-* `.env` is excluded via `.gitignore`
-* No sensitive data exposed to frontend
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/chat` | GuardianBot scam analysis |
+| POST | `/start-sim` | Start a SafeSimulator session |
+| POST | `/sim` | Continue SafeSimulator conversation |
+| GET | `/` | Serve frontend |
+
+---
+
+## 🔐 Security Notes
+- API keys stored in `.env` — never committed to git
+- `.env` is excluded via `.gitignore`
+- No sensitive data exposed to frontend
 
 ---
 
 ## 🧠 Future Improvements
-
-* Voice-based scam detection (speech-to-text)
-* WhatsApp / SMS integration
-* Real scam dataset training
-* User authentication & profiles
-* Advanced explainable AI (XAI)
+- Voice-based scam detection (speech-to-text)
+- WhatsApp / SMS integration
+- Real scam dataset fine-tuning
+- User authentication & profiles
+- Post-simulation coaching feedback
+- Advanced explainable AI (XAI)
 
 ---
 
 ## 🏆 Use Case
 
-This project is ideal for:
-
-* Cybersecurity awareness initiatives
-* Digital literacy programs
-* Hackathons (AI + Social Impact)
-* Educational tools for vulnerable users
+Ideal for:
+- Cybersecurity awareness initiatives
+- Digital literacy programs for seniors
+- Hackathons (AI + Social Impact)
+- Educational tools for vulnerable users
 
 ---
 
 ## 👨‍💻 Author
 
-Developed by **Omini Vishwakarma**
+Developed by **Omini Vishwakarma**  
 Cyber Security Engineering Student
 
 ---

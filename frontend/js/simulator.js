@@ -1,23 +1,26 @@
-// SCENARIOS
 const SCENARIOS = {
   upi: { title: "Fake UPI Helpdesk" },
-  lottery: { title: "Lottery Scam" },
-  grandchild: { title: "Emergency Scam" },
-  gaming: { title: "Gaming Reward Scam" }
+  lottery: { title: "Lottery Prize Call" },
+  grandchild: { title: "Grandchild Emergency" },
+  gaming: { title: "Free Gaming Reward" }
 };
 
-let activeScenario = 'upi'; // track selected scenario
+let activeScenario = 'upi';
 
-// START SIMULATION
+function selectScenario(el, id) {
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  activeScenario = id;
+}
+
 async function startSimulation() {
   const chatBox = document.getElementById('sim-chat');
   const messages = document.getElementById('sim-messages');
+  const title = document.getElementById('sim-title');
 
   if (!chatBox || !messages) return;
 
-  // get selected scenario from whichever card is selected
-  const selected = document.querySelector('.scenario-card.selected');
-  if (selected) activeScenario = selected.dataset.scenario;
+  if (title) title.textContent = SCENARIOS[activeScenario].title + ' — Active';
 
   chatBox.style.display = 'block';
   messages.innerHTML = '';
@@ -34,7 +37,6 @@ async function startSimulation() {
   }
 }
 
-// SEND USER MESSAGE IN SIM
 async function sendSimMessage() {
   const input = document.getElementById('sim-input');
   const msg = input.value.trim();
@@ -57,5 +59,12 @@ async function sendSimMessage() {
   } catch (err) {
     removeTyping();
     addMsg('sim-messages', 'bot', '⚠ Simulation error');
+  }
+}
+
+function handleSimKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendSimMessage();
   }
 }
